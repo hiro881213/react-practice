@@ -35,6 +35,13 @@ export const App = () => {
                             <button>戻す</button>
                         </div>
                     </li>
+                    <li>
+                        <div>
+                            <label>TODOでした</label>
+                            <button>戻す</button>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </>
