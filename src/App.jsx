@@ -34,6 +34,22 @@ export const App = () => {
 
     }
 
+    /**
+     * 削除ボタン押下処理
+     */
+    const onClickDelete = (index) => {
+                
+        // 新未完了TODOリストを生成する
+        const newTodos = [...incompleteTodos];
+
+        // 指定のTODOリストの場所を削除する
+        newTodos.splice(index,1);
+
+        // 未完了リストに新未完了TODOリストをセットする
+        setIncompleteTodos(newTodos);
+
+    }
+
     return (
         <>
             <div className = 'input-area'>
@@ -43,13 +59,13 @@ export const App = () => {
             <div className = 'incomplete-area'>
                 <p className = 'title'>未完了のTODO</p>
                 <ul>
-                    {incompleteTodos.map((todo) => {
+                    {incompleteTodos.map((todo,index) => {
                         return (
                         <li key = {todo}>
                             <div className = 'list-row'>
                                 <label>{todo}</label>
                                 <button>完了</button>
-                                <button>削除</button>
+                                <button onClick = {() => {onClickDelete(index)}}>削除</button>
                             </div>
                         </li>);
                     })}
@@ -66,7 +82,8 @@ export const App = () => {
                                     <label>{todo}</label>
                                     <button>戻す</button>
                                 </div>
-                            </li>);
+                            </li>
+                        );
                     })}
                 </ul>
             </div>
