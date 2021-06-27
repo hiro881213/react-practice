@@ -2,17 +2,43 @@ import React,{ useState } from 'react';
 
 export const App = () => {
 
+    // TODO入力テキストボックスのステート
+    const [todoText, setTodoText] = useState('');
+
     // 未完了TODOのステート
     const [incompleteTodos,setIncompleteTodos] = useState(['TODOです','TODOです']);
 
     // 完了TODOのステート
     const [completeTodos, setCompleteTodos] = useState(['TODOでした','TODOでした']);
 
+    /**
+     * TODO入力テキストボックス入力処理
+     */
+    const onChangeTodoText = (event) => {setTodoText(event.target.value)};
+
+    /**
+     * 追加ボタン押下処理
+     */
+    const onClickAdd = () => {
+
+        if (todoText === '') return;
+
+        // 新未完了TODOリストを生成する
+        const newTodos = [...incompleteTodos, todoText];
+        
+        // 未完了リストに新未完了TODOリストをセットする
+        setIncompleteTodos(newTodos);
+
+        // TODO入力テキストボックスを初期化する
+        setTodoText("");
+
+    }
+
     return (
         <>
             <div className = 'input-area'>
-                <input placeholder = 'TODOを入力'/>
-                <button>追加</button>
+                <input placeholder = 'TODOを入力' value = {todoText} onChange ={onChangeTodoText}/>
+                <button onClick = {onClickAdd}>追加</button>
             </div>
             <div className = 'incomplete-area'>
                 <p className = 'title'>未完了のTODO</p>
