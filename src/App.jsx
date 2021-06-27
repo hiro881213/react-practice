@@ -6,10 +6,10 @@ export const App = () => {
     const [todoText, setTodoText] = useState('');
 
     // 未完了TODOのステート
-    const [incompleteTodos,setIncompleteTodos] = useState(['TODOです','TODOです']);
+    const [incompleteTodos,setIncompleteTodos] = useState([]);
 
     // 完了TODOのステート
-    const [completeTodos, setCompleteTodos] = useState(['TODOでした','TODOでした']);
+    const [completeTodos, setCompleteTodos] = useState([]);
 
     /**
      * TODO入力テキストボックス入力処理
@@ -72,6 +72,25 @@ export const App = () => {
 
     }
 
+    /**
+     * 戻すボタン押下処理
+     */
+    const onclickBack = (index) => {
+        
+        // 新完了TODOリストを生成する
+        const newCompleteTodos = [...completeTodos];
+        newCompleteTodos.splice(index,1);
+
+        const newIncompleteTodos = [...incompleteTodos,completeTodos[index]];
+
+        // 未完了リストに新未完了TODOリストをセットする
+        setIncompleteTodos(newIncompleteTodos);
+        
+        // 完了リストに新完了TODOリストをセットする
+        setCompleteTodos(newCompleteTodos);
+
+    }
+
     return (
         <>
             <div className = 'input-area'>
@@ -97,12 +116,12 @@ export const App = () => {
             <div className = 'complete-area'>
                 <p className = 'title'>完了のTODO</p>
                 <ul>
-                    {completeTodos.map((todo) => {
+                    {completeTodos.map((todo,index) => {
                         return(
                             <li key = {todo}>
                                 <div className = 'list-row'>
                                     <label>{todo}</label>
-                                    <button>戻す</button>
+                                    <button onClick = {() => {onclickBack(index)}}>戻す</button>
                                 </div>
                             </li>
                         );
