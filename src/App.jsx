@@ -1,5 +1,14 @@
 import React,{ useState } from 'react';
 
+// 入力エリアを取得する
+import { InputTodo } from './components/InputTodo';
+
+// 未完了TODOエリアを取得する
+import { IncompleteTodos } from './components/IncompleteTodos'
+
+// 完了TODOエリアを取得する　
+import { CompleteTodos } from './components/CompleteTodos'
+
 export const App = () => {
 
     // TODO入力テキストボックスのステート
@@ -21,6 +30,7 @@ export const App = () => {
      */
     const onClickAdd = () => {
 
+        // TODO入力テキストボックスが入力していない場合動作させない
         if (todoText === '') return;
 
         // 新未完了TODOリストを生成する
@@ -93,41 +103,9 @@ export const App = () => {
 
     return (
         <>
-            <div className = 'input-area'>
-                <input placeholder = 'TODOを入力' value = {todoText} onChange ={onChangeTodoText}/>
-                <button onClick = {onClickAdd}>追加</button>
-            </div>
-            <div className = 'incomplete-area'>
-                <p className = 'title'>未完了のTODO</p>
-                <ul>
-                    {incompleteTodos.map((todo,index) => {
-                        return (
-                        <li key = {todo}>
-                            <div className = 'list-row'>
-                                <label>{todo}</label>
-                                <button onClick ={() => {onClickComplete(index)}}>完了</button>
-                                <button onClick = {() => {onClickDelete(index)}}>削除</button>
-                            </div>
-                        </li>);
-                    })}
-                </ul>
-            </div>
-
-            <div className = 'complete-area'>
-                <p className = 'title'>完了のTODO</p>
-                <ul>
-                    {completeTodos.map((todo,index) => {
-                        return(
-                            <li key = {todo}>
-                                <div className = 'list-row'>
-                                    <label>{todo}</label>
-                                    <button onClick = {() => {onclickBack(index)}}>戻す</button>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+            <InputTodo todoText ={todoText} onChange ={onChangeTodoText} onClick ={onClickAdd} />
+            <IncompleteTodos todos = {incompleteTodos} onClickComplete = { onClickComplete } onClickDelete = { onClickDelete } />
+            <CompleteTodos todos = {completeTodos} onclickBack = {onclickBack}/>
         </>
     );
   };
