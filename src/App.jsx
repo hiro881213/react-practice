@@ -1,6 +1,13 @@
-import React from 'react';
+import React,{ useState } from 'react';
 
 export const App = () => {
+
+    // 未完了TODOのステート
+    const [incompleteTodos,setIncompleteTodos] = useState(['TODOです','TODOです']);
+
+    // 完了TODOのステート
+    const [completeTodos, setCompleteTodos] = useState(['TODOでした','TODOでした']);
+
     return (
         <>
             <div className = 'input-area'>
@@ -10,39 +17,31 @@ export const App = () => {
             <div className = 'incomplete-area'>
                 <p className = 'title'>未完了のTODO</p>
                 <ul>
-                    <li>
-                        <div className = 'list-row'>
-                            <label>TODOです</label>
-                            <button>完了</button>
-                            <button>削除</button>
-                        </div>
-                    </li>
-                    <li>
-                        <div className = 'list-row'>
-                            <label>TODOです</label>
-                            <button>完了</button>
-                            <button>削除</button>
-                        </div>
-                    </li>
+                    {incompleteTodos.map((todo) => {
+                        return (
+                        <li key = {todo}>
+                            <div className = 'list-row'>
+                                <label>{todo}</label>
+                                <button>完了</button>
+                                <button>削除</button>
+                            </div>
+                        </li>);
+                    })}
                 </ul>
             </div>
 
             <div className = 'complete-area'>
                 <p className = 'title'>完了のTODO</p>
                 <ul>
-                    <li>
-                        <div className = 'list-row'>
-                            <label>TODOでした</label>
-                            <button>戻す</button>
-                        </div>
-                    </li>
-                    <li>
-                        <div className = 'list-row'>
-                            <label>TODOでした</label>
-                            <button>戻す</button>
-                        </div>
-                    </li>
-
+                    {completeTodos.map((todo) => {
+                        return(
+                            <li key = {todo}>
+                                <div className = 'list-row'>
+                                    <label>{todo}</label>
+                                    <button>戻す</button>
+                                </div>
+                            </li>);
+                    })}
                 </ul>
             </div>
         </>
