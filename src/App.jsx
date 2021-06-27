@@ -35,6 +35,28 @@ export const App = () => {
     }
 
     /**
+     * 完了ボタン押下処理
+     */
+    const onClickComplete = (index) => {
+
+        // 新未完了TODOリストを生成する
+        const newIncompleteTodos = [...incompleteTodos];
+
+        // 指定の未完了TODOリストの場所を削除する
+        newIncompleteTodos.splice(index,1);
+
+        // 新完了TODOリストを生成する
+        const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+
+        // 未完了リストに新未完了TODOリストをセットする
+        setIncompleteTodos(newIncompleteTodos);
+        
+        // 完了リストに新完了TODOリストをセットする
+        setCompleteTodos(newCompleteTodos);
+        
+    }
+
+    /**
      * 削除ボタン押下処理
      */
     const onClickDelete = (index) => {
@@ -64,7 +86,7 @@ export const App = () => {
                         <li key = {todo}>
                             <div className = 'list-row'>
                                 <label>{todo}</label>
-                                <button>完了</button>
+                                <button onClick ={() => {onClickComplete(index)}}>完了</button>
                                 <button onClick = {() => {onClickDelete(index)}}>削除</button>
                             </div>
                         </li>);
